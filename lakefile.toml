@@ -1,0 +1,10 @@
+name = "algebra-ist"
+version = "0.1.0"
+defaultTargets = ["algebra-ist"]
+
+[[lean_lib]]
+name = "AlgebraIst"
+
+[[lean_exe]]
+name = "algebra-ist"
+root = "Main"
