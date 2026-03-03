@@ -1,4 +1,5 @@
 import AlgebraIst.Structures
+import AlgebraIst.Theorems
 import AlgebraIst.TPC1
 
 def main : IO Unit :=
