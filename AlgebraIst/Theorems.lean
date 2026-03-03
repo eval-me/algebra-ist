@@ -7,7 +7,6 @@ theorem unique_id {α : Type u} {M : monoid α} (e : α) (h : ∀ a : α, e * a 
   exact h1.symm -- temos agora que monoid.id = e, mas queremos e = monoid.id, ou seja queremos o simétrico!
 
 -- Um teorema que diz que se a, b, c são elementos de um grupo e a * b = a * c ∨ b * a = c * a, então b = c.
-@[simp] -- usa-se simp tactic para termos acesso automático a esta regra!
 theorem cancellation_law {α : Type u} {G : group α} (a b c : α) : (a * b = a * c ∨ b * a = c * a) -> b = c := by
   intro h -- introduz h como hipótese
   cases h with -- h é uma disjunção, logo verifica-se caso a caso
@@ -17,3 +16,16 @@ theorem cancellation_law {α : Type u} {G : group α} (a b c : α) : (a * b = a 
   | inr hr => replace hr := congrArg (λ x => x * a⁻¹) hr -- se a direita for verdade
               simp [G.mul_assoc, G.inv_rmul, G.id_rmul] at hr
               exact hr
+
+-- Um teorema que diz que se a, b, c são elementos de um grupo e (a * b)⁻¹ = c então b⁻¹ * a⁻¹ = c.
+theorem inverse_law {α : Type u} {G : group α} (a b c: α) : (a * b)⁻¹ = c -> b⁻¹ * a⁻¹ = c := by
+  intro h
+  replace h := congrArg (λ x => x * (a * b)) h
+  simp [] at h
+  rw [<-G.mul_assoc] at h
+  replace h := congrArg (λ x => x * b⁻¹) h
+  simp [G.mul_assoc, G.inv_rmul, G.id_rmul, G.id_lmul] at h
+  replace h := congrArg (λ x => x * a⁻¹) h
+  dsimp at h
+  simp [G.mul_assoc, G.inv_rmul, G.id_rmul] at h
+  exact h  
