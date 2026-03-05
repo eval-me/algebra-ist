@@ -31,7 +31,11 @@ class abelianGroup (G : Type u) extends group G where
   mul_comm (a b: G) : a * b = b * a -- Define comutatividade para esta classe
 
 class subgroup (G : Type u) extends group G where
-      sub : G -> Prop
-      submul {a b : G} : sub a → sub b → sub (a * b)
-      subid : sub id
-      subinv {x : G} : sub x → sub x⁻¹ 
+  sub : G -> Prop
+  submul {a b : G} : sub a → sub b → sub (a * b)
+  subid : sub id
+  subinv {x : G} : sub x → sub x⁻¹ 
+
+class cyclicGroup (G : Type u) extends group G where
+  gen : G     
+  cyclic : ∀ (x : G), ∃ (n : Int), x = zpow gen n
